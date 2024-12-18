@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .title {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Articles</h1>
+  <% if (articles && articles.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Created By</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% articles.forEach(article => { %>
+          <tr>
+            <td class="title"><%= article.title %></td>
+            <td><%= article.content %></td>
+            <td><%= article.createdBy %></td>
+            <td><%= article.createdAt.toLocaleString() %></td>
+            <td>
+                <form action="/readarticleadmin/deletearticle/<%= article._id %>" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No articles found.</p>
+  <% } %>
+  <a href="/">back</a>
+</body>
+</html>

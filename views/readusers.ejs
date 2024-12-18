@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Users List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.role %></td>
+                    <td>
+                        <form action="/readusers/delete/<%= user._id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <% if (user.role !== 'banned') { %>
+                            <form action="/ban/<%= user._id %>" method="POST" style="display: inline;">
+                                <button type="submit">Ban</button>
+                            </form>
+                        <% } else { %>
+                            <span>Banned</span>
+                        <% } %>
+                    </td>
+                    <td>
+                        <% if (user.role !== 'user') { %>
+                            <form action="/ban/<%= user._id %>" method="POST" style="display: inline;">
+                                <button type="submit">UnBan</button>
+                            </form>
+                        <% } else { %>
+                            <span>Active</span>
+                        <% } %>
+                </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
